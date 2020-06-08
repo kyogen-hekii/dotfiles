@@ -39,3 +39,5 @@ echo 'Hint: 一回抜けてwindows側でwsl -t Ubuntu-20.04で再起動'
 # 確認
 # sudo service docker start
 # docker run hello-world
+
+sudo apt install docker-compose

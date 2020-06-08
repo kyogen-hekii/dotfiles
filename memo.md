@@ -6,6 +6,11 @@
 ※initializeなんてこの人のrepoには存在しない?
 そしてこの人のinitialzeという言葉は現在、説明とrepoで一致していない
 
+TODO
+* peco導入
+* ZLE
+* https://github.com/ymm1x/dotfiles/blob/master/.zshrc
+
 
 https://qiita.com/yasudanaoya/items/8b928cfadbf702108ba3
 
