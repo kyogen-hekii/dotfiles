@@ -34,3 +34,7 @@ prompt pure
 for rcfile in $HOME/.zshrc_etc/.??*; do
   source "$rcfile"
 done
+
+# docker用設定
+# 改ざん保護機能
+export DOCKER_CONTENT_TRUST=1
