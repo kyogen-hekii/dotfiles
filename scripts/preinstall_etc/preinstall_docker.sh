@@ -39,5 +39,8 @@ echo 'Hint: 一回抜けてwindows側でwsl -t Ubuntu-20.04で再起動'
 # 確認
 # sudo service docker start
 # docker run hello-world
+# 自動起動(wsl2ではできなかった)
+# sudo chkconfig docker on
+# sudo systemctl enable docker
 
 sudo apt install docker-compose
