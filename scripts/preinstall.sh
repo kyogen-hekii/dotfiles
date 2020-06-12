@@ -6,11 +6,18 @@
 main() {
   # 準備
   if is_linux; then
-    sudo apt-get -y update
-    sudo apt-get -y upgrade
+    sudo apt -y update
+    sudo apt -y upgrade
   fi
   if is_mac; then
     #TODO
+  fi
+  
+  # - core -
+  # make
+  if ! is_exists 'make'; then
+    #TODO
+    sudo apt install make
   fi
   
   # zsh
@@ -18,7 +25,9 @@ main() {
     #TODO
     echo 'no_zsh'; return
   fi
-  
+  # 
+
+
   # nodebrew(https://github.com/hokaccha/nodebrew)
   if ! is_exists 'node'; then
     curl -L git.io/nodebrew | perl - setup
