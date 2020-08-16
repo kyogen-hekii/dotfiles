@@ -1,0 +1,38 @@
+{
+  ".1_skelton_index": {
+    "prefix": ";recssskelton_index\r",
+    "description": "css for skelton\r",
+    "body": [
+      "\r",
+      "html {\r",
+      "  font-size: 62.5%;\r",
+      "  /* =10px */\r",
+      "}\r",
+      "\r",
+      "* {\r",
+      "  border: 1px solid red;\r",
+      "}\r",
+      "\r",
+      "code {\r",
+      "  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;\r",
+      "}\r",
+      "\r",
+      ".m10 {\r",
+      "  margin: 10px;\r",
+      "}\r",
+      "\r",
+      ".m20 {\r",
+      "  margin: 20px;\r",
+      "}\r",
+      "\r",
+      ".p20 {\r",
+      "  padding: 20px;\r",
+      "}\r",
+      "\r",
+      ".align-center {\r",
+      "  text-align: center;\r",
+      "}\r",
+      ""
+    ]
+  }
+}

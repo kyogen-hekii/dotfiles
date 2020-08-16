@@ -1,0 +1,50 @@
+{
+  "js arrow": {
+    "prefix": "jsar",
+    "body": [
+      " = ($1) => {",
+      " $2",
+      "}"
+    ],
+    "description": "JS arrow function"
+  },
+  "js comment": {
+    "prefix": "///",
+    "body": [
+      "/**",
+      " * $1",
+      " */"
+    ],
+    "description": "JSDoc comment"
+  },
+  "todo": {
+    "prefix": ";todo",
+    "body": [
+      "// TODO: "
+    ],
+    "description": "TODO comment"
+  },
+  "log": {
+    "prefix": ";log",
+    "body": [
+      "// LOG: "
+    ],
+    "description": "LOG comment"
+  },
+  "delete": {
+    "prefix": ";del\r",
+    "description": "DELETE comment\r",
+    "body": [
+      "// DELETE: "
+    ]
+  },
+  "region": {
+    "prefix": ";region",
+    "body": [
+      "// #region ",
+      "",
+      "// #endregion"
+    ],
+    "description": "region comment"
+  }
+}
