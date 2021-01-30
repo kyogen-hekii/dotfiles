@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # dotfiles内の.始まりのファイル/ディレクトリ全てhomeディレクトリにリンクを作成
 # ※このファイルはdotfilesで実行される

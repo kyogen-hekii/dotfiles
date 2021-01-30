@@ -6,6 +6,7 @@
 $ git clone https://github.com/kyogen-hekii/dotfiles.git
 $ cd dotfiles
 $ ./scripts/preinstall.sh
+$ ./scripts/preinstall_specify_zsh.sh
 $ ./scripts/link_as_deploy.sh
 ```
   
