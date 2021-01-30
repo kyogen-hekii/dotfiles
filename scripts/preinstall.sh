@@ -8,6 +8,11 @@ main() {
   if is_linux; then
     sudo apt -y update
     sudo apt -y upgrade
+    # zsh
+    if ! is_exists zsh; then
+      sudo apt install zsh
+      chsh -s $(which zsh)
+    fi
   fi
   if is_mac; then
     # brew
@@ -18,6 +23,7 @@ main() {
     # zsh
     if ! is_exists zsh; then
       brew isntall zsh
+      chsh -s $(which zsh)
     fi
     # karabiner
     # https://karabiner-elements.pqrs.org/
@@ -36,10 +42,10 @@ main() {
   
   # - core -
   # make
-  if ! is_exists 'make'; then
+    if ! is_exists 'make'; then
     sudo apt install make
   fi
-  
+
   # nodebrew(https://github.com/hokaccha/nodebrew)
   if ! is_exists 'node'; then
     curl -L git.io/nodebrew | perl - setup
@@ -48,13 +54,6 @@ main() {
     nodebrew install stable && nodebrew use stable
   fi
   
-  # zsh関連
-  #   pure(theme)※symlinkが貼れないから.zshrcにfpathに追加が必要
-  npm install --global pure-prompt
-  #   zinit
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
-  source ~/.zshrc
-  zinit self-update
 }
 
 # ----------

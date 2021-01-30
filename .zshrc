@@ -27,7 +27,7 @@ alias ls='ls -FG'
 # 補完候補もLS_COLORSに合わせて色が付くようにする...はできない
 
 # テーマ設定(pure)
-fpath+=("$HOME/.nodebrew/node/v14.4.0/lib/node_modules/pure-prompt/functions")
+fpath+=("$HOME/.nodebrew/node/v14.15.4/lib/node_modules/pure-prompt/functions")
 autoload -Uz promptinit && promptinit
 prompt pure
 
