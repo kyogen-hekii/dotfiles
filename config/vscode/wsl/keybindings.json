@@ -1,0 +1,151 @@
+// Place your key bindings in this file to override the defaults
+[
+  {
+    "key": "ctrl+oem_plus",
+    "command": "workbench.action.terminal.focus",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+oem_plus",
+    "command": "workbench.action.focusFirstEditorGroup",
+    "when": "!editorTextFocus"
+  },
+  {
+    "key": "ctrl+oem_4",
+    "command": "editor.action.jumpToBracket",
+    "when": "editorTextFocus"
+  },
+  {
+    // 効かない[https://github.com/microsoft/vscode/issues/99896]
+    "key": "alt+oem_4",
+    "command": "editor.emmet.action.matchTag",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+oem_6",
+    "command": "editor.action.smartSelect.grow",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "alt+oem_6",
+    "command": "editor.action.smartSelect.shrink",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+n",
+    "command": "workbench.action.terminal.new",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+k ctrl+l",
+    "command": "workbench.action.terminal.new",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+pageup",
+    "command": "workbench.action.terminal.focusNext",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+pagedown",
+    "command": "workbench.action.terminal.focusPrevious",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+shift+oem_minus",
+    "command": "workbench.action.zoomIn"
+  },
+  {
+    "key": "f8",
+    "command": "workbench.action.editor.nextChange",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "shift+f8",
+    "command": "workbench.action.editor.previousChange",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "f8",
+    "command": "workbench.action.compareEditor.nextChange",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "shift+f8",
+    "command": "workbench.action.compareEditor.previousChange",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+k ctrl+l",
+    "command": "editor.foldRecursively",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+k ctrl+k",
+    "command": "editor.unfoldRecursively",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+n ctrl+f",
+    "command": "search.action.openEditor"
+  },
+  {
+    "key": "f1 f2",
+    "command": "references-view.find"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "-workbench.action.togglePanel"
+  },
+  {
+    "key": "ctrl+alt+j",
+    "command": "-code-runner.runByLanguage"
+  },
+  {
+    "key": "ctrl+shift+alt+w",
+    "command": "workbench.action.closeWindow"
+  },
+  {
+    "key": "ctrl+shift+w",
+    "command": "-workbench.action.closeWindow"
+  },
+  {
+    "key": "ctrl+k ctrl+c",
+    "command": "-editor.action.addCommentLine",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "ctrl+k ctrl+shift+c",
+    "command": "copyRelativeFilePath",
+    "when": "editorFocus"
+  },
+  {
+    "key": "ctrl+k ctrl+shift+c",
+    "command": "-copyRelativeFilePath",
+    "when": "!editorFocus"
+  },
+  {
+    "key": "ctrl+shift+l",
+    "command": "eslint.executeAutofix",
+    "when": "editorFocus"
+  },
+  {
+    "key": "ctrl+shift+d",
+    "command": "-workbench.view.debug"
+  },
+  {
+    "key": "ctrl+shift+d",
+    "command": "editor.action.selectHighlights",
+    "when": "editorFocus"
+  },
+  {
+    "key": "ctrl+shift+l",
+    "command": "-editor.action.selectHighlights",
+    "when": "editorFocus"
+  },
+  {
+    "key": "f9",
+    "command": "workbench.action.compareEditor.focusOtherSide",
+    "when": "textCompareEditorVisible"
+  }
+]

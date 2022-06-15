@@ -1,7 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
 # dotfiles内の.始まりのファイル/ディレクトリ全てhomeディレクトリにリンクを作成
-DOT_DIRECTORY="${HOME}/workspace/dotfiles"
+# ※このファイルはdotfilesで実行される
+DOT_DIRECTORY=$(cd $(dirname $0)/../; pwd)
 for rcfile_fullpath in $DOT_DIRECTORY/.??*; do
   # 前方一致でパターン削除
   rcfile=${rcfile_fullpath##*/}

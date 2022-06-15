@@ -1,6 +1,6 @@
 {
   "editor.tabSize": 2,
-
+  "WIN_USER": "",
   "workbench.colorCustomizations": {
     "titleBar.activeBackground": "#FFFFDD",
     "titleBar.activeForeground": "#000000",

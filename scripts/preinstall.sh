@@ -1,32 +1,50 @@
 #!/bin/bash
 
-#
+# ----------
 # main
-#
+# ----------
 main() {
   # 準備
   if is_linux; then
     sudo apt -y update
     sudo apt -y upgrade
+    # zsh
+    if ! is_exists zsh; then
+      sudo apt install zsh
+      chsh -s $(which zsh)
+    fi
   fi
   if is_mac; then
-    #TODO
+    # brew
+    if ! is_exists 'brew'; then
+      xcode-select --install
+      ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    fi
+    # zsh
+    if ! is_exists zsh; then
+      brew isntall zsh
+      chsh -s $(which zsh)
+    fi
+    # karabiner
+    # https://karabiner-elements.pqrs.org/
+    # cp ~/.config/karabiner/karabiner.json ~/.config/karabiner/karabiner.json_bkup
+    # alfred
+    # https://www.alfredapp.com/
+    # Alfredのactionsとadvancedのctrl設定を無しにする(ctrl=caps)
+    # vscode
+    # https://azure.microsoft.com/ja-jp/products/visual-studio-code/
+    # hyperswitch
+    # https://bahoom.com/hyperswitch
+    # mapture
+    # https://anatoo.jp/mapture/
+    # 右クリックしてctrl+開く
   fi
   
   # - core -
   # make
-  if ! is_exists 'make'; then
-    #TODO
+    if ! is_exists 'make'; then
     sudo apt install make
   fi
-  
-  # zsh
-  if ! is_zsh; then
-    #TODO
-    echo 'no_zsh'; return
-  fi
-  # 
-
 
   # nodebrew(https://github.com/hokaccha/nodebrew)
   if ! is_exists 'node'; then
@@ -36,18 +54,11 @@ main() {
     nodebrew install stable && nodebrew use stable
   fi
   
-  # zsh関連
-  #   pure(theme)※symlinkが貼れないから.zshrcにfpathに追加が必要
-  npm install --global pure-prompt
-  #   zinit
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
-  source ~/.zshrc
-  zinit self-update
 }
 
-#
+# ----------
 # methods
-#
+# ----------
 
 # utils
 is_exists() {
@@ -60,15 +71,11 @@ is_mac() {
     [ "$(uname)" = "Darwin" ]
 }
 is_linux() {
-    [ "$(expr substr $(uname -s) 1 5)" = 'Linux' ]
+    # [ "$(expr substr $(uname -s) 1 5)" = 'Linux' ]
+    [[ "$(uname)" =~ Linux ]]
 }
 
-# etc
-is_zsh() {
-    [ -n "$ZSH_VERSION" ]
-}
-
-#
+# ----------
 # exec
-#
+# ----------
 main
