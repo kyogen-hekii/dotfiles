@@ -10,14 +10,25 @@
 # zal(Get-Alias)
 alias zal='code ~/.zshrc_etc/.alias.zshrc'
 
-# pbcopy(for wsl)
-alias -g pbc='clip.exe'
-alias -g clip='clip.exe'
+# os
+is_mac() {
+    [ "$(uname)" = "Darwin" ]
+}
+is_linux() {
+    # [ "$(expr substr $(uname -s) 1 5)" = 'Linux' ]
+    [[ "$(uname)" =~ Linux ]]
+}
 
-# copy last command
-# https://numb86-tech.hatenablog.com/entry/2019/10/04/164547
-# awkのgsubで置換、xargs echoでtrimしている。clip.exeを使うので最後の改行は取り除けない
-alias cplc='(){ history -a | tail -n 1 | head -n 1 | tr -d \n | awk '\''{gsub(/^ *[0-9]+/, "", $0); print $0}'\'' | xargs echo | clip.exe }'
+if ! is_mac; then
+  # pbcopy(for wsl)
+  alias -g pbc='clip.exe'
+  alias -g clip='clip.exe'
+  # copy last command
+  # https://numb86-tech.hatenablog.com/entry/2019/10/04/164547
+  # awkのgsubで置換、xargs echoでtrimしている。clip.exeを使うので最後の改行は取り除けない
+  # headの後ろはtr -d '\n' | がいると思ったのだが...
+  alias cplc='(){ history -a | tail -n 1 | head -n 1 | awk '\''{gsub(/^ *[0-9]+/, "", $0); print $0}'\'' | xargs echo | clip.exe }'
+fi
 
 # checks to see if we are in a windows or linux dir
 function isWinDir {
