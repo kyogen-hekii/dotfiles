@@ -26,10 +26,7 @@ export LS_COLORS='di=36;40:ln=35;40:so=32;40:pi=33;40:ex=31;40:bd=34;46:cd=34;43
 alias ls='ls -FG'
 # 補完候補もLS_COLORSに合わせて色が付くようにする...はできない
 
-# テーマ設定(pure)
-fpath+=("$HOME/.nodebrew/node/v14.15.4/lib/node_modules/pure-prompt/functions")
-autoload -Uz promptinit && promptinit
-prompt pure
+# テーマ設定(pure) -> .pure.zshrcで
 
 # 他のzshrcを読み込む
 for rcfile in $HOME/.zshrc_etc/.??*; do
