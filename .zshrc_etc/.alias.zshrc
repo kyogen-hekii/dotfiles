@@ -1,5 +1,17 @@
 # source ~/.zshrc
 # => ほかの*.zshrcファイルも読み込むようにしている
+# Q&A
+# 1. 'を打ちたいんだけど
+#   a.  '\''
+#   a. 'は打てないので、一度入力を終了する->'を入れる->入力再開
+# 1. trimするには?
+#   a. | xargs echo |
+#   a. echoでtrimできる
+
+is_exists() {
+    which "$1" >/dev/null 2>&1
+    return $?
+}
 
 # zal(Get-Alias)
 alias zal='code ~/.zshrc_etc/.alias.zshrc'
@@ -7,6 +19,15 @@ alias zal='code ~/.zshrc_etc/.alias.zshrc'
 # common
 alias ls='eza'
 alias la="eza -a --git -g -h --oneline"
+
+# git
+alias g='git'
+alias gpsh='git push origin HEAD'
+
+alias gs='git status -s | awk '\''{print $2}'\'''
+alias gskip='git status -s | awk '\''{print $2}'\'' | fzf | xargs git update-index --skip-worktree'
+alias gskipu='git ls-files -v | grep ^S | awk '\''{print $2}'\'' | fzf | xargs git update-index --no-skip-worktree'
+alias gskipls='git ls-files -v | grep ^S | awk '\''{print $2}'\'''
 
 # clip
 if is_exists clip.exe; then
@@ -60,11 +81,6 @@ execGbl() {
   git --no-pager reflog | awk '$3 == "checkout:" && /moving from/ {print $8}'
 }
 
-is_exists() {
-    which "$1" >/dev/null 2>&1
-    return $?
-}
-
 # os
 is_mac() {
     [ "$(uname)" = "Darwin" ]
@@ -80,10 +96,3 @@ function isWinDir {
   esac
 }
 # ❯ source ~/.zshrc
-# Q&A
-# 1. 'を打ちたいんだけど
-#   a.  '\''
-#   a. 'は打てないので、一度入力を終了する->'を入れる->入力再開
-# 1. trimするには?
-#   a. | xargs echo |
-#   a. echoでtrimできる
