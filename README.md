@@ -5,19 +5,26 @@
 ```sh
 $ git clone https://github.com/kyogen-hekii/dotfiles.git
 $ cd dotfiles
-$ ./scripts/preinstall.sh
-$ ./scripts/preinstall_specify_zsh.sh
+$ ./scripts/preinstall_first.sh
+$ ./scripts/preinstall_second.sh
+$ (vscodeを再起動)
 $ ./scripts/link_as_deploy.sh
+
+$ ./scripts/preinstall_etc/preinstall_zsh_tools.sh
+$ ./scripts/preinstall_etc/preinstall_cargo.sh
+$ ./scripts/preinstall_etc/preinstall_docker.sh
+$ ./scripts/preinstall_etc/sample_install_fonts.sh
 ```
-  
+
 ### 補足  
 ```sh
-# その他preinstall
-$ ./scripts/preinstall_etc/preinstall_docker.sh
 # karabinerの設定ファイルをdeploy
 $ ./config/karabiner/link_as_deploy_karabiner.sh
 # vscodeの設定ファイルをdeploy(mac)
 $ ./config/vscode/mac/link_as_deploy_vscode_settings.sh
+
+# vscodeの設定ファイルをdeploy(windows)
+$ ./config/vscode/wsl2/link_as_deploy_vscode_settings.sh
 ```
   
 ## その他  

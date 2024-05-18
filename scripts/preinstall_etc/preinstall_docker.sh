@@ -34,7 +34,7 @@ docker --version
 sudo usermod -aG docker $USER
 
 echo 'finished'
-echo 'Hint: 一回抜けてwindows側でwsl -t Ubuntu-20.04で再起動'
+echo 'Hint: 一回抜けてwindows側でwsl --shutdown Ubuntuで再起動'
 
 # 確認
 # sudo service docker start

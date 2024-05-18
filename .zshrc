@@ -1,7 +1,10 @@
-# ctrl+dでログアウトを無効
-setopt ignoreeof
-# 補完を利かせる
-autoload -Uz compinit && compinit
+# Fig pre block. Keep at the top of this file.
+# [[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
+
+#
+# keybind
+#
+#bindkey '^ ' autosuggest-accept
 
 #
 # 履歴
@@ -9,26 +12,51 @@ autoload -Uz compinit && compinit
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
+# 単一のhistoryファイルを共有
+setopt share_history
 # 直前と同じコマンドの場合は履歴に追加しない
 setopt hist_ignore_dups
 # 重複するコマンドは古い方を削除する
 setopt hist_ignore_all_dups
-# 補完候補を ←↓↑→ で選択
-zstyle ':completion:*:default' menu select true
+# ctrl+dでログアウトを無効
+setopt ignoreeof
+# 補完を利かせる
+autoload -Uz compinit && compinit
+# ディレクトリを変更するたびに、Zshは自動的に現在のディレクトリをディレクトリスタックにプッシュします。
+# e.g. pushd, popd, dirs
+setopt auto_pushd
+setopt pushd_ignore_dups
+setopt auto_cd
+
+# Prompt -> starship
+# そもそもpromptって? $(一般ユーザ)とか#(管理者)とか
+# config reload
+# code ~/.config/starship.toml
+[[ -f "$HOME/.cargo/bin/starship" ]] && eval "$(starship init zsh)"
+
+# Package Manager -> sheldon
+# config reload
+# code ~/.config/sheldon/plugins.toml
+[[ -f "$HOME/.cargo/bin/sheldon" ]] && eval "$(sheldon source)"
 
 #
-# 色
+# fzf
 #
-autoload colors && colors
-# ls
-export LS_COLORS='di=36;40:ln=35;40:so=32;40:pi=33;40:ex=31;40:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;46'
-# alias ls='ls -F --color'
-alias ls='ls -FG'
-# 補完候補もLS_COLORSに合わせて色が付くようにする...はできない
 
-# テーマ設定(pure) -> .pure.zshrcで
+# history
+function fzf-select-history() {
+    BUFFER=$(history -n -r 1 | fzf --query "$LBUFFER" --reverse)
+    CURSOR=$#BUFFER
+    zle reset-prompt
+}
+zle -N fzf-select-history
+bindkey '^r' fzf-select-history
 
 # 他のzshrcを読み込む
+source $HOME/.zshenv
 for rcfile in $HOME/.zshrc_etc/.??*; do
   source "$rcfile"
 done
+
+# Fig post block. Keep at the bottom of this file.
+# [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"

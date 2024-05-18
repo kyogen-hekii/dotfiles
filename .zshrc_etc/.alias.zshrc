@@ -1,25 +1,15 @@
 # source ~/.zshrc
-# Q&A
-# 1. 'を打ちたいんだけど
-#   a.  '\''
-#   a. 'は打てないので、一度入力を終了する->'を入れる->入力再開
-# 1. trimするには?
-#   a. | xargs echo |
-#   a. echoでtrimできる
+# => ほかの*.zshrcファイルも読み込むようにしている
 
 # zal(Get-Alias)
 alias zal='code ~/.zshrc_etc/.alias.zshrc'
 
-# os
-is_mac() {
-    [ "$(uname)" = "Darwin" ]
-}
-is_linux() {
-    # [ "$(expr substr $(uname -s) 1 5)" = 'Linux' ]
-    [[ "$(uname)" =~ Linux ]]
-}
+# common
+alias ls='eza'
+alias la="eza -a --git -g -h --oneline"
 
-if ! is_mac; then
+# clip
+if is_exists clip.exe; then
   # pbcopy(for wsl)
   alias -g pbc='clip.exe'
   alias -g clip='clip.exe'
@@ -30,13 +20,6 @@ if ! is_mac; then
   alias cplc='(){ history -a | tail -n 1 | head -n 1 | awk '\''{gsub(/^ *[0-9]+/, "", $0); print $0}'\'' | xargs echo | clip.exe }'
 fi
 
-# checks to see if we are in a windows or linux dir
-function isWinDir {
-  case $PWD/ in
-    /mnt/*) return $(true);;
-    *) return $(false);;
-  esac
-}
 # wrap the git command to either run windows git or linux
 function git {
   if isWinDir
@@ -77,4 +60,30 @@ execGbl() {
   git --no-pager reflog | awk '$3 == "checkout:" && /moving from/ {print $8}'
 }
 
+is_exists() {
+    which "$1" >/dev/null 2>&1
+    return $?
+}
+
+# os
+is_mac() {
+    [ "$(uname)" = "Darwin" ]
+}
+is_linux() {
+    # [ "$(expr substr $(uname -s) 1 5)" = 'Linux' ]
+    [[ "$(uname)" =~ Linux ]]
+}
+function isWinDir {
+  case $PWD/ in
+    /mnt/*) return $(true);;
+    *) return $(false);;
+  esac
+}
 # ❯ source ~/.zshrc
+# Q&A
+# 1. 'を打ちたいんだけど
+#   a.  '\''
+#   a. 'は打てないので、一度入力を終了する->'を入れる->入力再開
+# 1. trimするには?
+#   a. | xargs echo |
+#   a. echoでtrimできる

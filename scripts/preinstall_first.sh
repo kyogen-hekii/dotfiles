@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# ----------
+# ----------
 # main
-# ----------
+# ----------
 main() {
   # 準備
   if is_linux; then
@@ -39,21 +39,6 @@ main() {
     # https://anatoo.jp/mapture/
     # 右クリックしてctrl+開く
   fi
-  
-  # - core -
-  # make
-    if ! is_exists 'make'; then
-    sudo apt install make
-  fi
-
-  # nodebrew(https://github.com/hokaccha/nodebrew)
-  if ! is_exists 'node'; then
-    curl -L git.io/nodebrew | perl - setup
-    export PATH=$HOME/.nodebrew/current/bin:$PATH
-    source ~/.bashrc
-    nodebrew install stable && nodebrew use stable
-  fi
-  
 }
 
 # ----------
@@ -79,3 +64,4 @@ is_linux() {
 # exec
 # ----------
 main
+@echo zshをinstallしました。これ以降はzshを使用してください。
