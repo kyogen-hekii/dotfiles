@@ -53,7 +53,6 @@ zle -N fzf-select-history
 bindkey '^r' fzf-select-history
 
 # 他のzshrcを読み込む
-source $HOME/.zshenv
 for rcfile in $HOME/.zshrc_etc/.??*; do
   source "$rcfile"
 done
