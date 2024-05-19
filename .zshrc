@@ -52,6 +52,18 @@ function fzf-select-history() {
 zle -N fzf-select-history
 bindkey '^r' fzf-select-history
 
+# cdr
+function fzf-cdr() {
+    local selected_dir=$(dirs -p | fzf --reverse)
+    if [ -n "$selected_dir" ]; then
+        BUFFER="cd ${selected_dir}"
+        zle accept-line
+    fi
+    zle clear-screen
+}
+zle -N fzf-cdr
+bindkey '^h' fzf-cdr
+
 # 他のzshrcを読み込む
 for rcfile in $HOME/.zshrc_etc/.??*; do
   source "$rcfile"

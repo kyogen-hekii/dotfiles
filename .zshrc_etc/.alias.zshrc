@@ -16,6 +16,8 @@ alias dotf='cd ~/dotfiles'
 alias ls='eza'
 alias la="eza -a --git -g -h --oneline"
 alias cat='bat'
+alias fd='fdfind'
+alias cdr='fzf-cdr'
 
 # git
 # wrap the git command to either run windows git or linux
@@ -67,7 +69,7 @@ execGbl() {
 }
 
 # clip
-if ! [[ "$(uname -r)" == *microsoft* ]]; then
+if [[ "$(uname -r)" == *microsoft* ]]; then
   # pbcopy(for wsl)
   alias -g pbc='clip.exe'
   alias -g clip='clip.exe'
