@@ -10,6 +10,7 @@
 
 # zal(Get-Alias)
 alias zal='code ~/.zshrc_etc/.alias.zshrc'
+alias dotf='cd ~/dotfiles'
 
 # common
 alias ls='eza'
@@ -17,26 +18,6 @@ alias la="eza -a --git -g -h --oneline"
 alias cat='bat'
 
 # git
-alias g='git'
-alias gpsh='git push origin HEAD'
-
-alias gs='git status -s | awk '\''{print $2}'\'''
-alias gskip='git status -s | awk '\''{print $2}'\'' | fzf | xargs git update-index --skip-worktree'
-alias gskipu='git ls-files -v | grep ^S | awk '\''{print $2}'\'' | fzf | xargs git update-index --no-skip-worktree'
-alias gskipls='git ls-files -v | grep ^S | awk '\''{print $2}'\'''
-
-# clip
-if ! [[ "$(uname -r)" == *microsoft* ]]; then
-  # pbcopy(for wsl)
-  alias -g pbc='clip.exe'
-  alias -g clip='clip.exe'
-  # copy last command
-  # https://numb86-tech.hatenablog.com/entry/2019/10/04/164547
-  # awkのgsubで置換、xargs echoでtrimしている。clip.exeを使うので最後の改行は取り除けない
-  # headの後ろはtr -d '\n' | がいると思ったのだが...
-  alias cplc='(){ history -a | tail -n 1 | head -n 1 | awk '\''{gsub(/^ *[0-9]+/, "", $0); print $0}'\'' | xargs echo | clip.exe }'
-fi
-
 # wrap the git command to either run windows git or linux
 function git {
   if isWinDir
@@ -46,9 +27,17 @@ function git {
     /usr/bin/git "$@"
   fi
 }
+alias g='git'
+alias gpsh='git push origin HEAD'
 
-# git
-alias gch='(){ git checkout $1 }'
+alias gch='git checkout' #$1
+
+alias gs='git status -s | awk '\''{print $2}'\'''
+alias gskip='git status -s | awk '\''{print $2}'\'' | fzf | xargs git update-index --skip-worktree'
+alias gskipu='git ls-files -v | grep ^S | awk '\''{print $2}'\'' | fzf | xargs git update-index --no-skip-worktree'
+alias gskipls='git ls-files -v | grep ^S | awk '\''{print $2}'\'''
+
+# git(old)
 alias gchb='(){ git checkout -b $1 $2 }'
 alias gchbl='(){ execGbl | uniq | head | fzf | xargs git checkout }'
 alias gdev='(){ git checkout main }'
@@ -76,6 +65,22 @@ alias gdelold='(){ git branch -d --force $(git symbolic-ref --short HEAD)_old ; 
 execGbl() {
   git --no-pager reflog | awk '$3 == "checkout:" && /moving from/ {print $8}'
 }
+
+# clip
+if ! [[ "$(uname -r)" == *microsoft* ]]; then
+  # pbcopy(for wsl)
+  alias -g pbc='clip.exe'
+  alias -g clip='clip.exe'
+  # copy last command
+  # https://numb86-tech.hatenablog.com/entry/2019/10/04/164547
+  # awkのgsubで置換、xargs echoでtrimしている。clip.exeを使うので最後の改行は取り除けない
+  # headの後ろはtr -d '\n' | がいると思ったのだが...
+  alias cplc='(){ history -a | tail -n 1 | head -n 1 | awk '\''{gsub(/^ *[0-9]+/, "", $0); print $0}'\'' | xargs echo | clip.exe }'
+fi
+
+#
+# functions
+#
 
 # os
 is_mac() {
