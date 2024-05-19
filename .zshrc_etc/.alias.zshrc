@@ -1,4 +1,4 @@
-# source ~/.zshrc
+# source ~/.zshrc_etc/.alias.zshrc
 # => ほかの*.zshrcファイルも読み込むようにしている
 # Q&A
 # 1. 'を打ちたいんだけど
@@ -8,17 +8,13 @@
 #   a. | xargs echo |
 #   a. echoでtrimできる
 
-is_exists() {
-    which "$1" >/dev/null 2>&1
-    return $?
-}
-
 # zal(Get-Alias)
 alias zal='code ~/.zshrc_etc/.alias.zshrc'
 
 # common
 alias ls='eza'
 alias la="eza -a --git -g -h --oneline"
+alias cat='bat'
 
 # git
 alias g='git'
@@ -30,7 +26,7 @@ alias gskipu='git ls-files -v | grep ^S | awk '\''{print $2}'\'' | fzf | xargs g
 alias gskipls='git ls-files -v | grep ^S | awk '\''{print $2}'\'''
 
 # clip
-if is_exists clip.exe; then
+if ! [[ "$(uname -r)" == *microsoft* ]]; then
   # pbcopy(for wsl)
   alias -g pbc='clip.exe'
   alias -g clip='clip.exe'
