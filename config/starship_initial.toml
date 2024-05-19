@@ -3,6 +3,9 @@ add_newline = true
 [character]
 format = "[\\$](green bold) "
 
+[battery]
+disabled = true
+
 [directory]
 truncation_length = 3
 
