@@ -56,6 +56,11 @@ bindkey '^r' fzf-select-history
 for rcfile in $HOME/.zshrc_etc/.??*; do
   source "$rcfile"
 done
+if [[ -d "$HOME/.zshrc_secret" ]] then
+  for rcfile in $HOME/.zshrc_secret/.??*; do
+    source "$rcfile"
+  done
+fi
 
 # Fig post block. Keep at the bottom of this file.
 # [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"

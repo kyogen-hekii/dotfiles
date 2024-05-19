@@ -14,3 +14,11 @@ for rcfile_fullpath in $DOT_DIRECTORY/.??*; do
   # シンボリックリンク作成
   ln -snfv "$DOT_DIRECTORY/$rcfile" "$HOME/$rcfile"
 done
+
+if ![[ -d "$HOME/.zshrc_secret" ]] then
+  mkdir ~/.zshrc_secret
+  touch ~/.zshrc_secret/.secret.zshrc
+  if [[ "$(uname -r)" == *microsoft* ]]; then
+    echo 'export WIN_USER=(my_name)' | cat >> ~/.zshrc_secret/.secret.zshrc
+  fi
+fi
