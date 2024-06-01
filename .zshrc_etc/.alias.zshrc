@@ -23,7 +23,7 @@ alias fd='fdfind'
 alias fdf='fdfind'
 alias cdr='fzf-cdr'
 alias python='python3'
-# alias grep='rg'
+alias grep='rg'
 alias cx='() { echo "#!/usr/bin/zsh" > $1 && chmod +x $1 && code $1 }'
 alias uml='docker run -d -p 8201:8080 plantuml/plantuml-server:jetty && echo PlantUML Server is running on http://localhost:8201'
 

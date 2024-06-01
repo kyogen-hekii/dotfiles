@@ -40,7 +40,7 @@ main() {
 
   # etc
   # basic
-  sudo apt install -y zip unzip make
+  sudo apt install -y zip unzip make ripgrep
   # fzf
   git clone --depth 1 https://github.com/junegunn/fzf.git ~/.local/bin/.fzf
   ~/.local/bin/.fzf/install
