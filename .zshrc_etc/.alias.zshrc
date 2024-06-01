@@ -13,7 +13,6 @@
 
 # zal(Get-Alias)
 alias zal='code ~/.zshrc_etc/.alias.zshrc'
-
 alias dotf='cd ~/dotfiles'
 
 # common
@@ -24,7 +23,7 @@ alias fd='fdfind'
 alias fdf='fdfind'
 alias cdr='fzf-cdr'
 alias python='python3'
-alias grep='rg'
+# alias grep='rg'
 alias cx='() { echo "#!/usr/bin/zsh" > $1 && chmod +x $1 && code $1 }'
 alias uml='docker run -d -p 8201:8080 plantuml/plantuml-server:jetty && echo PlantUML Server is running on http://localhost:8201'
 
@@ -32,7 +31,13 @@ alias uml='docker run -d -p 8201:8080 plantuml/plantuml-server:jetty && echo Pla
 # git
 #
 # wrap the git command to either run windows git or linux
-function git {
+isWinDir() {
+  case $PWD/ in
+    /mnt/*) return $(true);;
+    *) return $(false);;
+  esac
+}
+git() {
   if isWinDir
   then
     git.exe "$@"
@@ -88,11 +93,11 @@ execGbl() {
 }
 
 alias grepo='cloneHelpfulRepo'
-function cloneHelpfulRepo
+cloneHelpfulRepo() {
     cd ~/workspace/git_repos
     git clone $1
     cd -
-end
+}
 
 #
 # clip
@@ -200,11 +205,5 @@ is_mac() {
 is_linux() {
     # [ "$(expr substr $(uname -s) 1 5)" = 'Linux' ]
     [[ "$(uname)" =~ Linux ]]
-}
-function isWinDir {
-  case $PWD/ in
-    /mnt/*) return $(true);;
-    *) return $(false);;
-  esac
 }
 # ❯ source ~/.zshrc
