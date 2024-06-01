@@ -9,3 +9,6 @@ export PATH=$HOME/.cargo/bin:$PATH
 export PATH=$HOME/.local/bin/.fzf/bin:$PATH
 # docker用設定(改ざん保護機能)
 export DOCKER_CONTENT_TRUST=1
+# mycli
+#   on PJ: ln -sf ${HOME}/mycli ${PJ_DIR}/__my-cli/root
+export PATH=$HOME/mycli:$PATH

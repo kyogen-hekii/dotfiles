@@ -39,6 +39,16 @@ setopt auto_cd
 # code ~/.config/sheldon/plugins.toml
 [[ -f "$HOME/.cargo/bin/sheldon" ]] && eval "$(sheldon source)"
 
+### -----
+### wsl用
+### -----
+export DOCKER_STATUS_ENABLED=$(service docker status | awk '{print $4}' | grep "running")
+if [[ "$(uname -r)" == *microsoft* ]]; then
+  if ! [[ "$DOCKER_STATUS_ENABLED" == "running" ]]; then
+    sudo service docker start >/dev/null
+  fi
+fi
+
 #
 # fzf
 #

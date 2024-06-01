@@ -12,6 +12,7 @@ main() {
     if ! is_exists zsh; then
       sudo apt install zsh
       chsh -s $(which zsh)
+      # 戻すとき: sudo /bin/chsh /bin/sh
     fi
   fi
   if is_mac; then
