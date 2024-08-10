@@ -9,14 +9,15 @@ $ ./scripts/preinstall_first.sh
 $ ./scripts/preinstall_second.sh
 $ (vscodeを再起動)
 $ ./scripts/link_as_deploy.sh
+$ ./scripts/preinstall_mac.sh
 
-$ ./scripts/preinstall_etc/preinstall_zsh_tools.sh
 $ ./scripts/preinstall_etc/preinstall_cargo.sh
+$ ./scripts/preinstall_etc/preinstall_zsh_tools.sh
 $ ./scripts/preinstall_etc/preinstall_docker.sh
 $ ./scripts/preinstall_etc/sample_install_fonts.sh
 ```
 
-### 補足  
+### 補足
 ```sh
 # karabinerの設定ファイルをdeploy
 $ ./config/karabiner/link_as_deploy_karabiner.sh

@@ -13,7 +13,7 @@
 
 # zal(Get-Alias)
 alias zal='code ~/.zshrc_etc/.alias.zshrc'
-alias dotf='cd ~/dotfiles'
+alias karabiner='code ~/.config/karabiner/karabiner.json'
 
 # common
 alias ls='eza'
@@ -112,6 +112,12 @@ if [[ "$(uname -r)" == *microsoft* ]]; then
   alias cph='history | fzf | sed -E "s/^ +[0-9]+ +//" | clip'
   alias cphlc='history | head -n 1 | sed -E "s/^ +[0-9]+ +//" | clip'
 fi
+if [ "$(uname)" = "Darwin" ]; then
+  alias -g pbc='pbcopy'
+  alias -g clip='pbcopy'
+  alias -g cph='history | fzf | sed -E "s/^ +[0-9]+ +//" | pbcopy'
+  alias -g cphlc='history | tail -n 1 | sed -E "s/^ +[0-9]+ +//" | pbcopy'
+fi
 
 # -----
 # docker
@@ -137,6 +143,12 @@ alias dcps='docker compose ps'
 # - [data]
 # docker-compose cp ./data.sql data-db:./data.sql
 # docker-compose exec data-db psql -U postgres data_db --file=./data.sql
+
+
+# -----
+# nodebrew
+# -----
+
 
 # -----
 # aws

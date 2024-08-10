@@ -42,8 +42,8 @@ setopt auto_cd
 ### -----
 ### wsl用
 ### -----
-export DOCKER_STATUS_ENABLED=$(service docker status | awk '{print $4}' | grep "running")
 if [[ "$(uname -r)" == *microsoft* ]]; then
+  export DOCKER_STATUS_ENABLED=$(service docker status | awk '{print $4}' | grep "running")
   if ! [[ "$DOCKER_STATUS_ENABLED" == "running" ]]; then
     sudo service docker start >/dev/null
   fi

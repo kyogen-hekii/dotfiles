@@ -1,5 +1,7 @@
 THIS_DIRECTORY=$(cd $(dirname $0)/; pwd)
 VSCODE_DIRECTORY=$HOME/Library/Application\ Support/Code/User
+# VSCODE_DIRECTORY=$HOME/Library/Application\ Support/Code\ \-\ Insiders/User
+
 # シンボリックリンク作成
 ln -snfv "$THIS_DIRECTORY/keybindings.json" "$VSCODE_DIRECTORY/keybindings.json"
 ln -snfv "$THIS_DIRECTORY/settings.json" "$VSCODE_DIRECTORY/settings.json"

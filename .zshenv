@@ -12,3 +12,4 @@ export DOCKER_CONTENT_TRUST=1
 # mycli
 #   on PJ: ln -sf ${HOME}/mycli ${PJ_DIR}/__my-cli/root
 export PATH=$HOME/mycli:$PATH
+. "$HOME/.cargo/env"
