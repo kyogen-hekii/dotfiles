@@ -131,8 +131,8 @@ fi
 if [ "$(uname)" = "Darwin" ]; then
   alias -g pbc='pbcopy'
   alias -g clip='pbcopy'
-  alias -g cph='history | fzf | sed -E "s/^ +[0-9]+ +//" | pbcopy'
-  alias -g cphlc='history | tail -n 1 | sed -E "s/^ +[0-9]+ +//" | pbcopy'
+  alias -g cph='history | tac | fzf | sed -E "s/^ +[0-9]+\*? +//" | pbcopy'
+  alias -g cphlc='history | tail -n 1 | sed -E "s/^ +[0-9]+\*? +//" | pbcopy'
 fi
 
 # -----

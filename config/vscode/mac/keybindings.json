@@ -26,6 +26,16 @@
     "when": "editorTextFocus"
   },
   {
+    "key": "ctrl+3",
+    "command": "workbench.action.navigateBack",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+4",
+    "command": "workbench.action.navigateForward",
+    "when": "editorTextFocus"
+  },
+  {
     "key": "ctrl+n",
     "command": "workbench.action.terminal.new",
     "when": "terminalFocus"
