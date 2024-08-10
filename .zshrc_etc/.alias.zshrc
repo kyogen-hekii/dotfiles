@@ -45,6 +45,22 @@ git() {
     /usr/bin/git "$@"
   fi
 }
+github_ssh_init() {
+  cd ~/.ssh
+  ssh-keygen -f ./id_xxx_mac_ed25519 -t ed25519
+  # ssh -T git@github.com
+  # => git@github.com: Permission denied (publickey).
+  # ssh -T git@github.com -i ~/.ssh/id_xxx_mac_ed25519
+  # => You've successfully authenticated, but GitHub does not provide shell access.
+  ssh-add ./id_xxx_mac_ed25519
+  ssh-add ls
+  ssh -T git@github.com
+  # => You've successfully authenticated, but GitHub does not provide shell access.
+
+  git remote -v
+  # ssh-add -d ./id_xxx_mac_ed25519
+}
+
 alias g='git'
 alias gpsh='git push origin HEAD'
 
