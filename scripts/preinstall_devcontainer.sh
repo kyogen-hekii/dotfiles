@@ -10,6 +10,19 @@ main() {
   sudo chsh -s $(which zsh)
   # 戻すとき: sudo /bin/chsh /bin/sh
 
+  DOT_DIRECTORY="$HOME/dotfiles"
+  for rcfile_fullpath in $DOT_DIRECTORY/.??*; do
+    # 前方一致でパターン削除
+    rcfile=${rcfile_fullpath##*/}
+
+    # 不要ファイルを無視
+    [[ $rcfile = ".git" ]] && continue
+    [[ $rcfile = ".gitignore" ]] && continue
+
+    # シンボリックリンク作成
+    ln -snfv "$DOT_DIRECTORY/$rcfile" "$HOME/$rcfile"
+  done
+
   curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y
   export PATH=$HOME/.cargo/bin:$PATH
   cargo install eza exa bat tre-command
