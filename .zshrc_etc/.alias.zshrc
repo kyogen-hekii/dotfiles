@@ -13,7 +13,7 @@
 
 # zal(Get-Alias)
 alias zal='code ~/.zshrc_etc/.alias.zshrc'
-alias dotf='cd ~/dotfiles'
+alias karabiner='code ~/.config/karabiner/karabiner.json'
 
 # common
 alias ls='eza'
@@ -45,6 +45,22 @@ git() {
     /usr/bin/git "$@"
   fi
 }
+github_ssh_init() {
+  cd ~/.ssh
+  ssh-keygen -f ./id_xxx_mac_ed25519 -t ed25519
+  # ssh -T git@github.com
+  # => git@github.com: Permission denied (publickey).
+  # ssh -T git@github.com -i ~/.ssh/id_xxx_mac_ed25519
+  # => You've successfully authenticated, but GitHub does not provide shell access.
+  ssh-add ./id_xxx_mac_ed25519
+  ssh-add ls
+  ssh -T git@github.com
+  # => You've successfully authenticated, but GitHub does not provide shell access.
+
+  git remote -v
+  # ssh-add -d ./id_xxx_mac_ed25519
+}
+
 alias g='git'
 alias gpsh='git push origin HEAD'
 
@@ -112,6 +128,12 @@ if [[ "$(uname -r)" == *microsoft* ]]; then
   alias cph='history | fzf | sed -E "s/^ +[0-9]+ +//" | clip'
   alias cphlc='history | head -n 1 | sed -E "s/^ +[0-9]+ +//" | clip'
 fi
+if [ "$(uname)" = "Darwin" ]; then
+  alias -g pbc='pbcopy'
+  alias -g clip='pbcopy'
+  alias -g cph='history | tac | fzf | sed -E "s/^ +[0-9]+\*? +//" | pbcopy'
+  alias -g cphlc='history | tail -n 1 | sed -E "s/^ +[0-9]+\*? +//" | pbcopy'
+fi
 
 # -----
 # docker
@@ -137,6 +159,12 @@ alias dcps='docker compose ps'
 # - [data]
 # docker-compose cp ./data.sql data-db:./data.sql
 # docker-compose exec data-db psql -U postgres data_db --file=./data.sql
+
+
+# -----
+# nodebrew
+# -----
+
 
 # -----
 # aws

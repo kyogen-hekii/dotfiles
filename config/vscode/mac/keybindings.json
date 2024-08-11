@@ -11,18 +11,28 @@
     "when": "!editorTextFocus"
   },
   {
-    "key": "ctrl+oem_4",
+    "key": "cmd+[",
     "command": "editor.action.jumpToBracket",
     "when": "editorTextFocus"
   },
   {
-    "key": "ctrl+shift+oem_4",
+    "key": "cmd+]",
     "command": "editor.action.smartSelect.grow",
     "when": "editorTextFocus"
   },
   {
-    "key": "cmd+oem_4",
+    "key": "ctrl+[",
     "command": "editor.emmet.action.matchTag",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+3",
+    "command": "workbench.action.navigateBack",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+4",
+    "command": "workbench.action.navigateForward",
     "when": "editorTextFocus"
   },
   {
@@ -41,7 +51,7 @@
     "when": "terminalFocus"
   },
   {
-    "key": "ctrl+shift+oem_minus",
+    "key": "cmd+shift+-",
     "command": "workbench.action.zoomIn"
   },
   {
@@ -65,23 +75,45 @@
     "when": "editorTextFocus"
   },
   {
-    "key": "ctrl+k ctrl+l",
-    "command": "editor.foldRecursively",
+    "key": "cmd+j",
+    "command": "-workbench.action.togglePanel"
+  },
+  {
+    "key": "cmd+shift+w",
+    "command": "-workbench.action.closeWindow"
+  },
+  {
+    "key": "cmd+f14",
+    "command": "copyRelativeFilePath",
     "when": "editorTextFocus"
   },
   {
-    "key": "ctrl+k ctrl+k",
-    "command": "editor.unfoldRecursively",
+    "key": "cmd+l",
+    "command": "eslint.executeAutofix",
     "when": "editorTextFocus"
   },
   {
-    "key": "cmd+space",
+    "key": "cmd+shift+l",
+    "command": "editor.action.formatDocument",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "cmd+shift+l",
+    "command": "-editor.action.selectHighlights",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "cmd+shift+d",
+    "command": "editor.action.selectHighlights",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "cmd+f13",
+    "command": "editor.action.showContextMenu"
+  },
+  {
+    "key": "cmd+shift+f13",
     "command": "editor.action.triggerSuggest",
-    "when": "editorHasCompletionItemProvider && textInputFocus && !editorReadonly"
-  },
-  {
-    "key": "ctrl+space",
-    "command": "-editor.action.triggerSuggest",
     "when": "editorHasCompletionItemProvider && textInputFocus && !editorReadonly"
   }
 ]

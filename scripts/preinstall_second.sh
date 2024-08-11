@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
+#!/bin/zsh
 if [[ $SHELL =~ bash ]]; then
   echo please zsh
   echo if you use wsl, you may have to edit settings.json like terminal.integratedshell.windows wslPath
@@ -14,21 +14,22 @@ main() {
   if is_linux; then
     sudo apt -y update
     sudo apt -y upgrade
+
+    if ! is_exists 'make'; then
+      # make
+      sudo apt install make
+    fi
   fi
   if is_mac; then
     brew update
   fi
-  
-  # make
-  if ! is_exists 'make'; then
-    sudo apt install make
-  fi
+
 
   # nodebrew(https://github.com/hokaccha/nodebrew)
   if ! is_exists 'node'; then
     curl -L git.io/nodebrew | perl - setup
     env PATH=$HOME/.nodebrew/current/bin:$PATH
-    nodebrew install stable && nodebrew use stable
+    $HOME/.nodebrew/current/bin/nodebrew install stable && $HOME/.nodebrew/current/bin/nodebrew use stable
   fi
 
   # pnpm
@@ -40,7 +41,15 @@ main() {
 
   # etc
   # basic
-  sudo apt install -y zip unzip make ripgrep
+  if is_linux; then
+    sudo apt -y update
+    sudo apt -y upgrade
+    sudo apt install -y make zip unzip ripgrep
+  fi
+  if is_mac; then
+    brew install ripgrep
+  fi
+
   # fzf
   git clone --depth 1 https://github.com/junegunn/fzf.git ~/.local/bin/.fzf
   ~/.local/bin/.fzf/install
