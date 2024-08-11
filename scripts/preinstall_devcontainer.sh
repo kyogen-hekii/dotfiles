@@ -39,5 +39,6 @@ prepare_font() {
   sudo mv HackGen_NF_v2.9.0 /usr/local/share/fonts/HackGen_NF
   fc-cache -fv
 }
+
 main
 prepare_font
