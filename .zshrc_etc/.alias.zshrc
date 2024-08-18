@@ -60,9 +60,13 @@ github_ssh_init() {
   ssh-add ls
   ssh -T git@github.com
   # => You've successfully authenticated, but GitHub does not provide shell access.
-
   git remote -v
   # ssh-add -d ./id_xxx_mac_ed25519
+
+  # ※.gitconfigに追加するだけでできる
+  # code ~/.gitconfig_me
+  #=> [core]
+	#=> sshCommand = ssh -i ~/.ssh/id_xxx_mac_ed25519 -F /dev/null
 }
 
 alias g='git'
