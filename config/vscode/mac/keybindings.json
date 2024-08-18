@@ -115,5 +115,15 @@
     "key": "cmd+shift+f13",
     "command": "editor.action.triggerSuggest",
     "when": "editorHasCompletionItemProvider && textInputFocus && !editorReadonly"
+  },
+  {
+    "key": "cmd+k",
+    "command": "-aipopup.action.modal.generate",
+    "when": "editorFocus"
+  },
+  {
+    "key": "cmd+k cmd+l",
+    "command": "editor.toggleFold",
+    "when": "editorTextFocus && foldingEnabled"
   }
 ]
