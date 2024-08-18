@@ -21,6 +21,8 @@ alias la="eza -a --git -g -h --oneline"
 alias cat='bat'
 if [ "$(whoami)" = "vscode" ]; then
   alias fdf='fd'
+elif [ "$(uname)" = "Darwin" ]; then
+  alias fdf='fd'
 else
   alias fd='fdfind'
   alias fdf='fdfind'
