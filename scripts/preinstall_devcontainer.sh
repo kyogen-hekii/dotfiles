@@ -26,6 +26,7 @@ main() {
   curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y
   export PATH=$HOME/.cargo/bin:$PATH
   cargo install eza exa bat tre-command
+  cargo install fd-find
 
   cargo install starship --locked
   [ ! -d ~/.config ] && mkdir ~/.config
@@ -53,5 +54,14 @@ prepare_font() {
   fc-cache -fv
 }
 
+others() {
+  # fzf
+  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.local/bin/.fzf
+  ~/.local/bin/.fzf/install
+  # deno
+  curl -fsSL https://deno.land/install.sh | sh
+}
+
 main
 prepare_font
+others

@@ -19,8 +19,12 @@ alias karabiner='code ~/.config/karabiner/karabiner.json'
 alias ls='eza'
 alias la="eza -a --git -g -h --oneline"
 alias cat='bat'
-alias fd='fdfind'
-alias fdf='fdfind'
+if [ "$(whoami)" = "vscode" ]; then
+  alias fdf='fd'
+else
+  alias fd='fdfind'
+  alias fdf='fdfind'
+fi
 alias cdr='fzf-cdr'
 alias python='python3'
 alias grep='rg'
