@@ -4,7 +4,7 @@
 DOTFILES_PATH=~/dotfiles
 
 main() {
-  sudo dnf install -y util-linux-user which make gcc cmake openssl-devel
+  sudo dnf install -y util-linux-user which make gcc cmake openssl-devel net-tools
 
   sudo dnf install -y zsh
   sudo chsh -s $(which zsh)
@@ -27,6 +27,8 @@ main() {
   export PATH=$HOME/.cargo/bin:$PATH
   cargo install eza exa bat tre-command
   cargo install fd-find
+  # dnfにripgrepがない、cargoで入れるとPRCE2がない
+  cargo install ripgrep
 
   cargo install starship --locked
   [ ! -d ~/.config ] && mkdir ~/.config
