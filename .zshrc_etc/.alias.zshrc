@@ -29,6 +29,7 @@ else
 fi
 alias cdr='fzf-cdr'
 alias python='python3'
+alias pip='pip3'
 alias grep='rg'
 alias cx='() { echo "#!/usr/bin/zsh" > $1 && chmod +x $1 && code $1 }'
 alias uml='docker run -d -p 8201:8080 plantuml/plantuml-server:jetty && echo PlantUML Server is running on http://localhost:8201'
@@ -179,6 +180,10 @@ alias dcps='docker compose ps'
 # -----
 # aws
 # -----
+aws_profile_fzf() {
+  export AWS_PROFILE="$(grep '^\[profile ' ~/.aws/config | sed 's/^\[profile \(.*\)\]$/\1/' | fzf)"
+}
+
 set AWS_PROFILE_DEFAULT aws
 set AWSP aws --profile {$AWS_PROFILE_DEFAULT}
 # ユーザープール一覧
@@ -213,6 +218,15 @@ alias xargs_sample='echo "foo and bar." | xargs -I {} echo "Argument: {}"'
 # -----
 # fd util | awk '/apis?/'
 # fd -t d -I node_modules
+# my-だけ
+# fd my- -u -t f -E node_modules
+
+#
+# net関連
+#
+# port一覧
+# netstat -tuln
+
 
 # -----
 # ripgrep
