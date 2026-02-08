@@ -4,7 +4,7 @@
 DOTFILES_PATH=~/dotfiles
 
 main() {
-  sudo dnf install -y util-linux-user which make gcc cmake openssl-devel net-tools
+  sudo dnf install -y util-linux-user which make gcc cmake openssl-devel net-tools jq
 
   sudo dnf install -y zsh
   sudo chsh -s $(which zsh)
@@ -27,8 +27,7 @@ main() {
   export PATH=$HOME/.cargo/bin:$PATH
   cargo install eza exa bat tre-command
   cargo install fd-find
-  # dnfにripgrepがない、cargoで入れるとPRCE2がない
-  cargo install ripgrep
+  cargo install ripgrep --features pcre2
 
   cargo install starship --locked
   [ ! -d ~/.config ] && mkdir ~/.config
@@ -62,6 +61,9 @@ others() {
   ~/.local/bin/.fzf/install
   # deno
   curl -fsSL https://deno.land/install.sh | sh
+
+  # mysql client
+  sudo dnf install mariadb105
 }
 
 main

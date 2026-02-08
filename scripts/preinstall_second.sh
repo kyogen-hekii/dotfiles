@@ -24,13 +24,18 @@ main() {
     brew update
   fi
 
+  # mise
+  brew install mise
+  # activate はシェル再起動後に効くから、ここでは env を使う..?
+  eval "$(mise env)"
 
-  # nodebrew(https://github.com/hokaccha/nodebrew)
-  if ! is_exists 'node'; then
-    curl -L git.io/nodebrew | perl - setup
-    env PATH=$HOME/.nodebrew/current/bin:$PATH
-    $HOME/.nodebrew/current/bin/nodebrew install stable && $HOME/.nodebrew/current/bin/nodebrew use stable
-  fi
+  mise use -g node@24
+  # yarn pnpm も on
+  corepack enable
+  mise use -g python@3.14
+  mise use -g uv@latest
+  mise use -g bun@latest
+  mise use -g deno@latest
 
   # pnpm
   if ! is_exists 'pnpm'; then
@@ -44,17 +49,15 @@ main() {
   if is_linux; then
     sudo apt -y update
     sudo apt -y upgrade
-    sudo apt install -y make zip unzip ripgrep
+    sudo apt install -y make zip unzip ripgrep fd-find
   fi
   if is_mac; then
-    brew install ripgrep
+    brew install ripgrep fd
   fi
 
   # fzf
   git clone --depth 1 https://github.com/junegunn/fzf.git ~/.local/bin/.fzf
   ~/.local/bin/.fzf/install
-  # deno
-  curl -fsSL https://deno.land/install.sh | sh
 }
 
 # ----------
