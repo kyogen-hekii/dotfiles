@@ -36,7 +36,16 @@
     "when": "editorTextFocus"
   },
   {
-    "key": "ctrl+n",
+    "key": "cmd+n",
+    "command": "workbench.action.files.newUntitledFile",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "cmd+n",
+    "command": "-workbench.action.files.newUntitledFile"
+  },
+  {
+    "key": "cmd+n",
     "command": "workbench.action.terminal.new",
     "when": "terminalFocus"
   },
@@ -85,6 +94,11 @@
   {
     "key": "cmd+f14",
     "command": "copyRelativeFilePath",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "cmd+shift+f14",
+    "command": "copy-file-name.copyFileName",
     "when": "editorTextFocus"
   },
   {
@@ -177,5 +191,38 @@
   {
     "key": "ctrl+cmd+;",
     "command": "workbench.action.closePanel"
-  }
+  },
+  {
+    "key": "alt+cmd+f",
+    "command": "-copy-file-name.copyFileName",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "alt+cmd+e",
+    "command": "-copy-file-name.copyFileNameWithExtension",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "cmd+d cmd+b",
+    "command": "-dbcode.connections.view.focus",
+    "when": "editorHasMultipleSelections && !editorTextFocus && !terminalFocusInAny || editorHasSelection && !editorTextFocus && !terminalFocusInAny || !editorHasMultipleSelections && !editorHasSelection && !terminalFocusInAny"
+  },
+  {
+    "key": "cmd+delete",
+    "command": "deleteFile",
+    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceMoveableToTrash && !inputFocus"
+  },
+  {
+    "key": "cmd+backspace",
+    "command": "-deleteFile",
+    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceMoveableToTrash && !inputFocus"
+},
+{
+    "key": "shift+enter",
+    "command": "workbench.action.terminal.sendSequence",
+    "args": {
+        "text": "\u001b\r"
+    },
+    "when": "terminalFocus"
+}
 ]
