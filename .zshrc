@@ -100,4 +100,4 @@ fi
 eval "$(mise activate zsh)"
 
 # opencode
-export PATH=/Users/kokoro029/.opencode/bin:$PATH
+export PATH=$HOME/.opencode/bin:$PATH
