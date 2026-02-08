@@ -14,6 +14,11 @@
 # zal(Get-Alias)
 alias zal='code ~/.zshrc_etc/.alias.zshrc'
 alias karabiner='code ~/.config/karabiner/karabiner.json'
+alias mcpconfig_calude='code ~/Library/Application\ Support/Claude/claude_desktop_config.json'
+alias mcplog=''
+
+# code
+alias code-insiders='"/Applications/Visual Studio Code - Insiders.app/Contents/Resources/app/bin/code"'
 
 # common
 alias ls='eza'
@@ -30,9 +35,17 @@ fi
 alias cdr='fzf-cdr'
 alias python='python3'
 alias pip='pip3'
-alias grep='rg'
 alias cx='() { echo "#!/usr/bin/zsh" > $1 && chmod +x $1 && code $1 }'
 alias uml='docker run -d -p 8201:8080 plantuml/plantuml-server:jetty && echo PlantUML Server is running on http://localhost:8201'
+
+#
+# etc
+#
+
+# ln
+# ※ 元はcurrent dirからの相対パスにならないから絶対パス推奨
+# ln -s /workspace/ksd_common ./ksd/my-common
+
 
 #
 # git
@@ -115,6 +128,19 @@ alias gskipls='git ls-files -v | grep ^S | awk '\''{print $2}'\'''
 # abort
 # git merge --abort
 
+# copy
+# git checkout -b feature/xxx_copied
+
+# gh
+# cache確認,削除
+# gh api repos/KDDIsmartdrone-dev/drone-dm-backend/actions/caches --paginate --jq '.actions_caches[] | select(.ref == "refs/pull/1186/merge") | "\(.id)\t\(.key)"'
+# gh api repos/KDDIsmartdrone-dev/drone-dm-backend/actions/caches --paginate --jq '.actions_caches[] | select(.ref == "refs/pull/1186/merge") | .key' | while read -r key; do
+#   echo "Deleting cache: $key"
+#   gh api --method DELETE "repos/KDDIsmartdrone-dev/drone-dm-backend/actions/caches?key=${key}"
+#   sleep 1  # Rate limit対策
+# done
+
+
 execGbl() {
   git --no-pager reflog | awk '$3 == "checkout:" && /moving from/ {print $8}'
 }
@@ -154,6 +180,7 @@ alias dc='docker compose'
 alias dcup='docker compose up -d'
 alias dcstop='docker compose stop'
 alias dcrm='docker compose down --rmi all --volumes --remove-orphans'
+alias dcrmv='docker compose down --volumes --remove-orphans'
 alias dcdown='docker compose down --remove-orphans'
 alias dcps='docker compose ps'
 
@@ -170,12 +197,6 @@ alias dcps='docker compose ps'
 # - [data]
 # docker-compose cp ./data.sql data-db:./data.sql
 # docker-compose exec data-db psql -U postgres data_db --file=./data.sql
-
-
-# -----
-# nodebrew
-# -----
-
 
 # -----
 # aws
@@ -232,6 +253,7 @@ alias xargs_sample='echo "foo and bar." | xargs -I {} echo "Argument: {}"'
 # ripgrep
 # -----
 # rg 'useMutation.*\('
+# rg -g '*.ts' -g '!-spec.ts'  -g '!*.spec.ts' -g '!**/test/**' -g '!test-util.ts' -i '@aws-sdk/client-s3'
 
 # -----
 # cargo
@@ -259,3 +281,92 @@ is_linux() {
     [[ "$(uname)" =~ Linux ]]
 }
 # ❯ source ~/.zshrc
+
+sample_node_eval0() {
+  local txt="Hi!!"
+  NAME="John" node -e "console.log('${txt} ' + process.env.NAME)"
+}
+
+function last_output() {
+  local output_file=~/.last_output
+  local clean_output_file=~/.last_output_clean
+  local hist_line=$(fc -ln -1)
+  # ファイルに情報を保存
+  {
+      echo "Command: $hist_line"
+      echo "Time: $(date)"
+      echo "PWD: $(pwd)"
+      echo "Output:"
+      echo "---"
+  } > "$output_file"
+
+  # コマンド再実行（生の出力も保存）
+  eval "$hist_line" 2>&1 | tee -a "$output_file"
+
+  # ANSIエスケープコードを除去したクリーン版も作成
+  sed 's/\x1b\[[0-9;]*m//g; s/\x1b\[[0-9]*[A-Za-z]//g; s/\x1b\[[0-9]*K//g' "$output_file" > "$clean_output_file"
+  echo -e "\n📋 Output captured! Use these commands:"
+  echo "  cat ~/.last_output_clean    # Clean output (recommended)"
+  echo "  cat ~/.last_output          # Raw output (with escape codes)"
+  # echo "  pbcopy < ~/.last_output_clean  # Copy clean version (macOS)"
+  pbcopy < ~/.last_output_clean
+}
+
+function rddb() {
+  local db_file="${1:?Database file is required. Usage: rddb <db_file>}"
+
+  local cur=$(date +%Y%m%d_%H%M%S)
+  local session_file=~/duckdb_sessions/duckdb_session_"$cur".log
+  local session_clean_file=~/duckdb_sessions/clean/duckdb_clean_"$cur".log
+  local log_file=~/.last_output
+  local log_clean_file=~/./last_output_clean
+
+  echo "🎬 Recording DuckDB session..."
+  echo "📁 Database: $db_file"
+  echo "📝 Output: $session_file"
+  echo "💡 Use 'exit' or Ctrl+D to finish recording"
+  echo "---"
+
+  # macOS式の構文(関数のスコープでのみ記録される)
+  script -a "$session_file" duckdb "$db_file"
+  cp "$session_file" "$log_file"
+  clean_duckdb_output "$log_file" "$log_clean_file"
+  cp "$log_clean_file" "$session_clean_file"
+  echo "---"
+  echo "✅ Recording completed: $session_clean_file"
+  echo "✅ same as: $log_clean_file"
+}
+
+function clean_duckdb_output() {
+    local output_file="${1:-$HOME/.last_output}"
+    local clean_output_file="${2:-$HOME/.last_output_clean}"
+
+    # ステップバイステップで処理（修正版）
+    # 1. エスケープコードを除去
+    sed 's/\x1b\[[0-9;]*[a-zA-Z]//g' "$output_file" > /tmp/step1.txt
+    # 2. カーソル位置制御を除去
+    sed 's/\[[0-9]*;[0-9]*f//g' /tmp/step1.txt > /tmp/step2.txt
+    # 3. 改行を復元（D の前で改行を挿入） + 改行コード正規化
+    sed 's/D /\nD /g; s/\r//g' /tmp/step2.txt > /tmp/step2a.txt
+    # 4. 空行を削除
+    grep -v '^$' /tmp/step2a.txt > /tmp/step2b.txt
+    # 5. セミコロンで終わらないD行のみを除去（順序保持）
+    awk '
+    /^D / {
+        if ($0 ~ /;$/) {
+            # セミコロンで終わるD行は保持
+            print $0
+        }
+        # セミコロンで終わらないD行は無視
+    }
+    !/^D / {
+        # D以外の行はそのまま保持
+        print $0
+    }
+    ' /tmp/step2b.txt > /tmp/step3.txt
+    # 6. 重複行を除去
+    uniq /tmp/step3.txt > "$clean_output_file"
+    # 一時ファイル削除
+    rm -f /tmp/step*.txt
+    echo "🧹 DuckDB output cleaned:"
+}
