@@ -64,6 +64,8 @@ others() {
 
   # mysql client
   sudo dnf install mariadb105
+
+  sudo dnf install mise
 }
 
 main

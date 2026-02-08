@@ -25,7 +25,13 @@ main() {
   fi
 
   # mise
-  brew install mise
+  if is_linux; then
+    apt install -y mise
+  fi
+  if is_mac; then
+    brew install mise
+  fi
+
   # activate はシェル再起動後に効くから、ここでは env を使う..?
   eval "$(mise env)"
 
