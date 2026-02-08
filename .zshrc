@@ -1,3 +1,8 @@
+# .zshenv     → 常に最初（全シェル）
+# .zprofile   → ログインシェルのみ
+# .zshrc      → 対話シェルのみ
+# .zlogin     → ログインシェルのみ（.zshrc の後）
+
 # Fig pre block. Keep at the top of this file.
 # [[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 
@@ -74,7 +79,7 @@ function fzf-cdr() {
 zle -N fzf-cdr
 bindkey '^h' fzf-cdr
 
-# 他のzshrcを読み込む
+# 他のzshrcを読み込む(.zshrc_etc)
 for rcfile in $HOME/.zshrc_etc/.??*; do
   source "$rcfile"
 done
@@ -83,6 +88,16 @@ if [[ -d "$HOME/.zshrc_secret" ]] then
     source "$rcfile"
   done
 fi
+if [ -x /opt/homebrew/bin/brew ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 
 # Fig post block. Keep at the bottom of this file.
 # [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
+
+## mise
+eval "$(mise activate zsh)"
+
+# opencode
+export PATH=/Users/kokoro029/.opencode/bin:$PATH
