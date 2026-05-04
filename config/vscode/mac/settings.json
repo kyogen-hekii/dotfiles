@@ -52,7 +52,7 @@
   "[yaml]": {
     "editor.defaultFormatter": "redhat.vscode-yaml"
   },
-  "python.defaultInterpreterPath": "/opt/homebrew/bin/python3",
+  "python.defaultInterpreterPath": "${env:HOME}/.local/share/mise/shims/python",
   "claudeCodeChat.wsl.enabled": false,
   "claudeCodeChat.wsl.distro": "Ubuntu",
   "claudeCodeChat.wsl.nodePath": "/usr/bin/node",
@@ -76,5 +76,6 @@
   "workbench.sideBar.location": "right",
   "workbench.navigationControl.enabled": false,
   "chat.tools.terminal.outputLocation": "chat",
-  "diffEditor.ignoreTrimWhitespace": false
+  "diffEditor.ignoreTrimWhitespace": false,
+  "terminal.integrated.macOptionIsMeta": true
 }

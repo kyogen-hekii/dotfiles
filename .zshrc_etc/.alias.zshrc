@@ -73,7 +73,6 @@ github_ssh_init() {
 }
 
 alias g='git'
-alias gpsh='git push origin HEAD'
 
 alias gch='() { git checkout $1 }'
 alias gchb='(){ git checkout -b $1 $2 }'
@@ -81,16 +80,33 @@ alias gchbm='(){ git checkout -b $1 main }'
 alias gchbl='execGbl | uniq | head | fzf | xargs git checkout'
 alias gdev='git checkout main'
 alias gf='git fetch'
-alias gpl='(){ git pull --ff origin $1 }'
+alias gpl='git pull --ff-only'
 alias gpr='git pull --rebase'
-alias gplr='(){ git pull --rebase origin $1 }'
+alias gplr='git pull --rebase'
 alias gplrabort='git merge --abort'
 alias gpld='git pull --rebase origin main'
-alias gpsh='git push origin HEAD'
-alias gpshf='git push origin HEAD --force'
+gpsh() {
+  git rev-parse --abbrev-ref --symbolic-full-name '@{u}' >/dev/null 2>&1 \
+    && git push \
+    || git push -u origin HEAD
+}
+gpshf() {
+  git rev-parse --abbrev-ref --symbolic-full-name '@{u}' >/dev/null 2>&1 \
+    && git push --force-with-lease \
+    || git push -u origin HEAD --force-with-lease
+}
 alias gbn='git symbolic-ref --short HEAD'
 alias gbnc='git symbolic-ref --short HEAD | pbc'
 alias gbl='execGbl | uniq | head | fzf | pbc'
+gsetupstream() {
+  local current_branch
+  current_branch="$(git branch --show-current)"
+  if [ -z "$current_branch" ]; then
+    echo "Not on a branch (detached HEAD)."
+    return 1
+  fi
+  git branch --set-upstream-to="origin/$current_branch" "$current_branch"
+}
 
 alias gusd='git branch -u origin/main'
 alias grn='(){ git branch -m $1 }'
@@ -259,3 +275,92 @@ is_linux() {
     [[ "$(uname)" =~ Linux ]]
 }
 # ❯ source ~/.zshrc
+
+sample_node_eval0() {
+  local txt="Hi!!"
+  NAME="John" node -e "console.log('${txt} ' + process.env.NAME)"
+}
+
+function last_output() {
+  local output_file=~/.last_output
+  local clean_output_file=~/.last_output_clean
+  local hist_line=$(fc -ln -1)
+  # ファイルに情報を保存
+  {
+      echo "Command: $hist_line"
+      echo "Time: $(date)"
+      echo "PWD: $(pwd)"
+      echo "Output:"
+      echo "---"
+  } > "$output_file"
+
+  # コマンド再実行（生の出力も保存）
+  eval "$hist_line" 2>&1 | tee -a "$output_file"
+
+  # ANSIエスケープコードを除去したクリーン版も作成
+  sed 's/\x1b\[[0-9;]*m//g; s/\x1b\[[0-9]*[A-Za-z]//g; s/\x1b\[[0-9]*K//g' "$output_file" > "$clean_output_file"
+  echo -e "\n📋 Output captured! Use these commands:"
+  echo "  cat ~/.last_output_clean    # Clean output (recommended)"
+  echo "  cat ~/.last_output          # Raw output (with escape codes)"
+  # echo "  pbcopy < ~/.last_output_clean  # Copy clean version (macOS)"
+  pbcopy < ~/.last_output_clean
+}
+
+function rddb() {
+  local db_file="${1:?Database file is required. Usage: rddb <db_file>}"
+
+  local cur=$(date +%Y%m%d_%H%M%S)
+  local session_file=~/duckdb_sessions/duckdb_session_"$cur".log
+  local session_clean_file=~/duckdb_sessions/clean/duckdb_clean_"$cur".log
+  local log_file=~/.last_output
+  local log_clean_file=~/./last_output_clean
+
+  echo "🎬 Recording DuckDB session..."
+  echo "📁 Database: $db_file"
+  echo "📝 Output: $session_file"
+  echo "💡 Use 'exit' or Ctrl+D to finish recording"
+  echo "---"
+
+  # macOS式の構文(関数のスコープでのみ記録される)
+  script -a "$session_file" duckdb "$db_file"
+  cp "$session_file" "$log_file"
+  clean_duckdb_output "$log_file" "$log_clean_file"
+  cp "$log_clean_file" "$session_clean_file"
+  echo "---"
+  echo "✅ Recording completed: $session_clean_file"
+  echo "✅ same as: $log_clean_file"
+}
+
+function clean_duckdb_output() {
+    local output_file="${1:-$HOME/.last_output}"
+    local clean_output_file="${2:-$HOME/.last_output_clean}"
+
+    # ステップバイステップで処理（修正版）
+    # 1. エスケープコードを除去
+    sed 's/\x1b\[[0-9;]*[a-zA-Z]//g' "$output_file" > /tmp/step1.txt
+    # 2. カーソル位置制御を除去
+    sed 's/\[[0-9]*;[0-9]*f//g' /tmp/step1.txt > /tmp/step2.txt
+    # 3. 改行を復元（D の前で改行を挿入） + 改行コード正規化
+    sed 's/D /\nD /g; s/\r//g' /tmp/step2.txt > /tmp/step2a.txt
+    # 4. 空行を削除
+    grep -v '^$' /tmp/step2a.txt > /tmp/step2b.txt
+    # 5. セミコロンで終わらないD行のみを除去（順序保持）
+    awk '
+    /^D / {
+        if ($0 ~ /;$/) {
+            # セミコロンで終わるD行は保持
+            print $0
+        }
+        # セミコロンで終わらないD行は無視
+    }
+    !/^D / {
+        # D以外の行はそのまま保持
+        print $0
+    }
+    ' /tmp/step2b.txt > /tmp/step3.txt
+    # 6. 重複行を除去
+    uniq /tmp/step3.txt > "$clean_output_file"
+    # 一時ファイル削除
+    rm -f /tmp/step*.txt
+    echo "🧹 DuckDB output cleaned:"
+}
