@@ -86,7 +86,6 @@ github_ssh_init() {
 }
 
 alias g='git'
-alias gpsh='git push origin HEAD'
 
 alias gch='() { git checkout $1 }'
 alias gchb='(){ git checkout -b $1 $2 }'
@@ -94,16 +93,33 @@ alias gchbm='(){ git checkout -b $1 main }'
 alias gchbl='execGbl | uniq | head | fzf | xargs git checkout'
 alias gdev='git checkout main'
 alias gf='git fetch'
-alias gpl='(){ git pull --ff origin $1 }'
+alias gpl='git pull --ff-only'
 alias gpr='git pull --rebase'
-alias gplr='(){ git pull --rebase origin $1 }'
+alias gplr='git pull --rebase'
 alias gplrabort='git merge --abort'
 alias gpld='git pull --rebase origin main'
-alias gpsh='git push origin HEAD'
-alias gpshf='git push origin HEAD --force'
+gpsh() {
+  git rev-parse --abbrev-ref --symbolic-full-name '@{u}' >/dev/null 2>&1 \
+    && git push \
+    || git push -u origin HEAD
+}
+gpshf() {
+  git rev-parse --abbrev-ref --symbolic-full-name '@{u}' >/dev/null 2>&1 \
+    && git push --force-with-lease \
+    || git push -u origin HEAD --force-with-lease
+}
 alias gbn='git symbolic-ref --short HEAD'
 alias gbnc='git symbolic-ref --short HEAD | pbc'
 alias gbl='execGbl | uniq | head | fzf | pbc'
+gsetupstream() {
+  local current_branch
+  current_branch="$(git branch --show-current)"
+  if [ -z "$current_branch" ]; then
+    echo "Not on a branch (detached HEAD)."
+    return 1
+  fi
+  git branch --set-upstream-to="origin/$current_branch" "$current_branch"
+}
 
 alias gusd='git branch -u origin/main'
 alias grn='(){ git branch -m $1 }'

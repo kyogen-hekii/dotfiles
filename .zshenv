@@ -22,6 +22,9 @@ export DOCKER_CONTENT_TRUST=0
 export PATH=$HOME/mycli:$PATH
 . "$HOME/.cargo/env"
 
+# pnpm
+export PATH="$HOME/.local/share/pnpm:$PATH"
+
 # Added by Windsurf
 export PATH="$HOME/.codeium/windsurf/bin:$PATH"
 

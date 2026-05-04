@@ -1,6 +1,13 @@
 // Place your key bindings in this file to override the defaults
 [
   {
+    "memo": "変換+右矢印でターミナル内の単語移動",
+    "key": "alt+right",
+    "command": "workbench.action.terminal.sendSequence",
+    "args": { "text": "\u001bf" },
+    "when": "terminalFocus"
+  },
+  {
     "key": "ctrl+;",
     "command": "workbench.action.terminal.focus",
     "when": "editorTextFocus"
