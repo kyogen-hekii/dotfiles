@@ -9,7 +9,18 @@
 #
 # keybind
 #
-#bindkey '^ ' autosuggest-accept
+# bindkey '^ ' autosuggest-accept
+# bindkey '^[f' forward-word
+# emacs/vi insert の両方で有効にする
+# bindkey -M emacs '\ef' forward-word
+# bindkey -M viins '\ef' forward-word
+# bindkey '^[f' forward-word
+bindkey '^[f' emacs-forward-word
+bindkey '^[[1;3C' forward-word
+WORDCHARS=${WORDCHARS//\/}
+
+# zsh-autosuggestions の候補を単語単位で受け入れる
+# ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS+=(forward-word)
 
 #
 # 履歴
@@ -99,5 +110,13 @@ fi
 ## mise
 eval "$(mise activate zsh)"
 
+## git-wt
+eval "$(git wt --init zsh)"
+
 # opencode
 export PATH=$HOME/.opencode/bin:$PATH
+
+## editor
+export EDITOR=hx
+export VISUAL=hx
+export FILETREE_DEFAULT_CMD='zellij action new-pane -f --width 90% --height 90% --x 5% --y 5% -- /opt/homebrew/bin/hx <filepath>'
