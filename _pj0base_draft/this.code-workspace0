@@ -1,0 +1,41 @@
+{
+  "folders": [
+    {
+      "path": "."
+    },
+    {
+      "uri": "/Users/kokoro029/workspace/_pj0base/this.code-workspace"
+    }
+  ],
+  "settings": {
+    "workbench.colorCustomizations": {
+      "titleBar.activeBackground": "#e8c4c4",
+      "titleBar.activeForeground": "#2b3a55",
+      "titleBar.inactiveBackground": "#e8c4c4",
+      "titleBar.inactiveForeground": "#2b3a55",
+      "activityBar.background": "#e8c4c4",
+      "activityBar.foreground": "#2b3a55",
+      "statusBar.background": "#e8c4c4",
+      "statusBar.foreground": "#2b3a55",
+      "tab.activeBorder": "#ce7777",
+      "editor.selectionBackground": "#ce7777"
+    },
+    "typescript.preferences.importModuleSpecifier": "relative",
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "deno.enablePaths": ["bower_components", "__my-cli"],
+    "terminal.integrated.env.linux": {
+      "PATH": "${env:PATH}:${workspaceFolder}cli"
+    },
+    // formatter
+    "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescriptreact]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "always"
+    }
+  }
+}

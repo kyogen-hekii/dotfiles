@@ -35,6 +35,15 @@ alias cx='() { echo "#!/usr/bin/zsh" > $1 && chmod +x $1 && code $1 }'
 alias uml='docker run -d -p 8201:8080 plantuml/plantuml-server:jetty && echo PlantUML Server is running on http://localhost:8201'
 
 #
+# etc
+#
+
+# ln
+# ※ 元はcurrent dirからの相対パスにならないから絶対パス推奨
+# ln -s /workspace/xxx_common ./xxx/my-common
+
+
+#
 # git
 #
 # wrap the git command to either run windows git or linux
@@ -130,6 +139,19 @@ alias gskipls='git ls-files -v | grep ^S | awk '\''{print $2}'\'''
 
 # abort
 # git merge --abort
+
+# copy
+# git checkout -b feature/xxx_copied
+
+# gh
+# cache確認,削除
+# gh api repos/dev/backend/actions/caches --paginate --jq '.actions_caches[] | select(.ref == "refs/pull/1186/merge") | "\(.id)\t\(.key)"'
+# gh api repos/dev/backend/actions/caches --paginate --jq '.actions_caches[] | select(.ref == "refs/pull/1186/merge") | .key' | while read -r key; do
+#   echo "Deleting cache: $key"
+#   gh api --method DELETE "repos/dev/backend/actions/caches?key=${key}"
+#   sleep 1  # Rate limit対策
+# done
+
 
 execGbl() {
   git --no-pager reflog | awk '$3 == "checkout:" && /moving from/ {print $8}'

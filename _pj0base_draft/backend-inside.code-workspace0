@@ -1,0 +1,146 @@
+{
+  "folders": [
+    {
+      "path": "."
+    },
+    {
+      "path": "/home/vscode/dotfiles"
+    },
+    {
+      "path": "/home/vscode/.codex"
+    },
+    {
+      "path": "/home/vscode/.claude"
+    },
+    {
+      "path": "/home/vscode/.copilot"
+    }
+  ],
+  "settings": {
+    "files.watcherExclude": {
+      "**/.git/objects/**": true,
+      "**/.git/subtree-cache/**": true,
+      "node_modules/**": true,
+      ".devcontainer/**": true,
+      ".dynamodb/**": true,
+      ".esbuild/**": true,
+      "**/.hg/store/**": true
+    },
+    "editor.experimental.asyncTokenization": true,
+    "typescript.tsserver.experimental.enableProjectDiagnostics": false,
+    "typescript.tsserver.log": "off",
+    "typescript.disableAutomaticTypeAcquisition": false,
+    "workbench.colorCustomizations": {
+      "titleBar.activeBackground": "#ecb323",
+      "titleBar.activeForeground": "#2b3a55",
+      "titleBar.inactiveBackground": "#ecb323",
+      "titleBar.inactiveForeground": "#2b3a55",
+      "activityBar.background": "#ecb323",
+      "activityBar.foreground": "#2b3a55",
+      "statusBar.background": "#ecb323",
+      "statusBar.foreground": "#2b3a55",
+      "tab.activeBorder": "#ce7777",
+      "editor.selectionBackground": "#ce7777"
+    },
+    // path以降を指定。scriptsはmy/scriptsを指定している。配下も対象になるみたい
+    "deno._enablePaths": ["scripts", "base"],
+    "typescript.preferences.importModuleSpecifier": "relative",
+    "typescript.tsdk": "backend/node_modules/typescript/lib",
+    "terminal.integrated.commandsToSkipShell": ["git.rebaseInteractive"],
+    "terminal.integrated.env.linux": {
+      "PATH": "${env:PATH}:${workspaceFolder}cli"
+    },
+    "jest.runMode": {
+      "type": "on-demand"
+    },
+    "jest.outputConfig": {
+      "revealOn": "demand"
+    },
+    "github.copilot.nextEditSuggestions.enabled": false,
+    // "github.copilot.editor.enableCodeActions": false,
+    // formatter
+    "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescriptreact]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[markdown]": {
+      "editor.wordWrap": "off"
+    },
+    "yaml.customTags": ["!Ref scalar"],
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "never",
+      "source.fixAll": "always"
+    },
+    "testing.automaticallyOpenTestResults": "neverOpen",
+    "telemetry.feedback.enabled": false,
+    "gitlens.telemetry.enabled": false,
+    "deno.enable": false,
+    "liveServer.settings.multiRootWorkspaceName": "backend"
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "deno_toggle",
+        "type": "shell",
+        "command": "deno run -A --ext ts --no-check /container/mounts/my/scripts/for_workspace/denoToggleInsideWorkspace.ts",
+        "problemMatcher": []
+      },
+      {
+        "label": "test-server-prepare",
+        "type": "shell",
+        "command": "yarn migrate:test-db",
+        "problemMatcher": []
+      },
+      {
+        "label": "dev-server-prepare",
+        "type": "shell",
+        "command": "yarn migrate:local",
+        "problemMatcher": []
+      },
+      {
+        "label": "test-server-run",
+        "type": "shell",
+        "command": "yarn __lanch-appsync-graphql-log__",
+        "problemMatcher": []
+      },
+      {
+        "label": "dev-server-run",
+        "type": "shell",
+        "command": "yarn local",
+        "problemMatcher": []
+      },
+      {
+        "label": "test-server-run-without-log",
+        "type": "shell",
+        "command": "yarn __lanch-appsync-graphql__",
+        "problemMatcher": []
+      },
+      {
+        "label": "test-indivisual#",
+        "type": "shell",
+        "command": "yarn jest --silent=false --config ./jest.config.ts --runInBand --verbose --testMatch /backend/${relativeFile} --testNamePattern '# '",
+        "command_with_log": "yarn jest --silent=false --config ./jest.config.ts --runInBand --verbose --testMatch /backend/${relativeFile} --testNamePattern '# ' > ./res.txt",
+        "command_without_log": "yarn jest --config ./jest.config.ts --runInBand --verbose --testMatch /backend/${relativeFile} --testNamePattern '# '",
+        "problemMatcher": []
+      },
+      {
+        "label": "skymatix-test-indivisual#",
+        "type": "shell",
+        "command": "yarn jest --silent=false --config ./jest.config.ts --runInBand --verbose --testMatch /backend/${relativeFile} --testNamePattern '# '",
+        "command_with_log": "yarn jest --silent=false --config ./jest.config.ts --runInBand --verbose --testMatch /backend/${relativeFile} --testNamePattern '# ' > ./res.txt",
+        "command_without_log": "yarn jest --config ./jest.config.ts --runInBand --verbose --testMatch /backend/${relativeFile} --testNamePattern '# '",
+        "problemMatcher": []
+      },
+      {
+        "label": "test-this-file",
+        "type": "shell",
+        "command": "yarn jest --silent --config ./jest.config.ts --runInBand --verbose --testMatch /backend/${relativeFile}",
+        "problemMatcher": []
+      }
+    ]
+  }
+}
