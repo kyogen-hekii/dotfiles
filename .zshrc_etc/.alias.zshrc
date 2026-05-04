@@ -14,6 +14,11 @@
 # zal(Get-Alias)
 alias zal='code ~/.zshrc_etc/.alias.zshrc'
 alias karabiner='code ~/.config/karabiner/karabiner.json'
+alias mcpconfig_calude='code ~/Library/Application\ Support/Claude/claude_desktop_config.json'
+alias mcplog=''
+
+# code
+alias code-insiders='"/Applications/Visual Studio Code - Insiders.app/Contents/Resources/app/bin/code"'
 
 # common
 alias ls='eza'
@@ -30,7 +35,6 @@ fi
 alias cdr='fzf-cdr'
 alias python='python3'
 alias pip='pip3'
-alias grep='rg'
 alias cx='() { echo "#!/usr/bin/zsh" > $1 && chmod +x $1 && code $1 }'
 alias uml='docker run -d -p 8201:8080 plantuml/plantuml-server:jetty && echo PlantUML Server is running on http://localhost:8201'
 
@@ -192,6 +196,7 @@ alias dc='docker compose'
 alias dcup='docker compose up -d'
 alias dcstop='docker compose stop'
 alias dcrm='docker compose down --rmi all --volumes --remove-orphans'
+alias dcrmv='docker compose down --volumes --remove-orphans'
 alias dcdown='docker compose down --remove-orphans'
 alias dcps='docker compose ps'
 
@@ -208,12 +213,6 @@ alias dcps='docker compose ps'
 # - [data]
 # docker-compose cp ./data.sql data-db:./data.sql
 # docker-compose exec data-db psql -U postgres data_db --file=./data.sql
-
-
-# -----
-# nodebrew
-# -----
-
 
 # -----
 # aws
@@ -270,6 +269,7 @@ alias xargs_sample='echo "foo and bar." | xargs -I {} echo "Argument: {}"'
 # ripgrep
 # -----
 # rg 'useMutation.*\('
+# rg -g '*.ts' -g '!-spec.ts'  -g '!*.spec.ts' -g '!**/test/**' -g '!test-util.ts' -i '@aws-sdk/client-s3'
 
 # -----
 # cargo
