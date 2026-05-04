@@ -1,0 +1,18 @@
+{
+  "folders": [
+    {
+      "path": "."
+    },
+    {
+      "path": "/Users/watashi/Library/Application Support/Alfred/Alfred.alfredpreferences/workflows",
+      "name": "Alfred Workflows",
+    },
+    {
+      "path": "/Users/watashi/Library/Application Support/Alfred/Alfred.alfredpreferences/snippets",
+      "name": "Alfred Snippets",
+    }
+  ],
+  "settings": {
+    "deno.enable": true,
+  }
+}
